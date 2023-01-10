@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+Equipment List -
+{% endblock head_title %}
+
+{% block content %}
+
+<ol>
+    
+    {% for ob in object_list %}
+    <li>
+        <a href="">{{ob}}</a>
+    </li>
+    {% empty %}
+    <p class="pt-5 text-center fs-1">No Data</p>
+    <hr>
+    {% endfor %}
+</ol>
+
+{% endblock content %}

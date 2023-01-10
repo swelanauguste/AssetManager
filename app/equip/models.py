@@ -38,14 +38,14 @@ class Status(models.Model):
         ordering = ("status",)
 
     def __str__(self):
-        return self.status
+        return self.status.capitalize()
 
 
 class EquipmentType(models.Model):
     equip_type = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
-        return self.equip_type
+        return self.equip_type.upper()
 
 
 class Equipment(models.Model):
@@ -86,31 +86,15 @@ class Equipment(models.Model):
         return f"{self.model} (S/N: {self.serial_number})"
 
 
-class Maintenance(models.Model):
-    equipment = models.ForeignKey(
-        Equipment,
-        on_delete=models.CASCADE,
-        related_name="maintenance",
-        null=True,
-        blank=True,
+class EquipmentNote(models.Model):
+    equip = models.ForeignKey(
+        "Equipment", on_delete=models.CASCADE, related_name="equipment_notes"
     )
     summary = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name_plural = "maintenance"
-        ordering = ("-updated_at",)
-
-    def __str__(self):
-        return f"{self.summary} - {self.equipment.serial_number}"
-
-
-class MaintenanceComment(models.Model):
-    equip_maintenance = models.ForeignKey(
-        "Maintenance", on_delete=models.CASCADE, related_name="maintenance_comments"
+    note = models.TextField()
+    attachment = models.FileField(
+        null=True, blank=True, verbose_name="file",
     )
-    comments = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -118,4 +102,17 @@ class MaintenanceComment(models.Model):
         ordering = ("-updated_at",)
 
     def __str__(self):
-        return f"{self.equip_maintenance} comment"
+        return f"{self.equip} {self.summary}"
+
+
+class IPAddress(models.Model):
+    address = models.CharField(max_length=32, unique=True,)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ("-updated_at",)
+
+    def __str__(self):
+        return f"{self.address}"
+

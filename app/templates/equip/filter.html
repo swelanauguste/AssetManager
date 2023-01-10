@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+Equipment List -
+{% endblock head_title %}
+
+{% block content %}
+
+<div class="p-5">
+    <div class="row">
+        <div class="col-lg-4 shadow  rounded-3 py-5 px-3 mx-4">
+            <form action=""
+                method="get">
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form.serial_number|as_crispy_field }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form.equip_type|as_crispy_field }}
+                    </div>
+                 
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form.model|as_crispy_field }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form.branch|as_crispy_field }}
+                    </div>
+               
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form.location|as_crispy_field }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form.status|as_crispy_field }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form.date_received|as_crispy_field }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form.details|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form.date_received|as_crispy_field }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form.details|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="text-end my-3">
+                    <a class="btn btn-warning mx-1"
+                        href="{% url 'equip-filter-list' %}">Reset</a>
+                    <button class="btn btn-outline-dark px-5"
+                        type="submit">Filter</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- ======================================== -->
+
+        <div class="col mx-auto shadow px-3 py-5 rounded-4">
+            {{ page.start_index }}-{{ page.end_index }} of {{ page.paginator.count }}
+            <hr>
+            <h1>Filtered List ({{object_list.all.count}})</h1>
+            <hr>
+            <ol>
+                {% for ob in object_list %}
+                <li class="p-3 border border-1 border-dark mb-2 rounded-4">
+                    <a class="text-decoration-none text-dark on-hover" href="">{{ob}}</a>
+                </li>
+                {% empty %}
+                <p class="pt-5 text-center fs-1">No Data</p>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock content %}

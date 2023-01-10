@@ -122,11 +122,13 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "/staticfiles/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-STATIC_URL = "mediafiles/"
-STATIC_ROOT = BASE_DIR / "/mediafiles/"
+MEDIA_URL = "mediafiles/"
+MEDIA_ROOT = BASE_DIR / "/mediafiles/"
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
